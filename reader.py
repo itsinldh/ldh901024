@@ -129,5 +129,7 @@ class getstart():
     #def SshConnect
 
 if __name__ == "__main__":
+    os.system('rm -rf /NAS/false_check.txt')
     getiplist = getstart()
     getiplist.run_getstart(sys.argv)
+
