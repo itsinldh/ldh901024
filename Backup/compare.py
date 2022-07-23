@@ -119,19 +119,13 @@ class Compare_result():
 
     def FileCheck(self,cmd,service,vendor,hostip):
         find=0
-        print(service)
-#        if vendor == "Backup_Axgate":
-#            find != os.system(cmd)i
-        print(cmd)
-
-
         file_check = open('/NAS/false_check.txt','a')
         if find != os.system(cmd):
             filecmd = service + " " + vendor + " " + hostip + "\n"
             file_check.writelines(filecmd)
         else:
-            print("find!!!!")       
-        
+            print("find!!!!")
+
         file_check.close
 
 

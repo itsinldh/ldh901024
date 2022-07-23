@@ -99,6 +99,8 @@ class getstart():
                     ssh_result = scheck.SSH_Connection_Axgate(lhost_ip,lhost_id,lhost_pw,lhost_port,local_path,Axgate_cmd)
                     findcmd = findfile_Axgate
                     maintainAXCnt += 1
+                else:
+                    print("기타장비\n")
 
                 
                 #==================file check============================
