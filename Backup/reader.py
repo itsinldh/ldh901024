@@ -5,7 +5,6 @@ import re
 import subprocess
 
 import compare
-#test
 
 class getstart():
     def run_getstart(self, args):
@@ -57,7 +56,6 @@ class getstart():
         try:
             arraylen=len(array)
             fornum=2
-            print(arraylen)
 
             for service, vendor, lhost_ip, lhost_port, lhost_id, lhost_pw in array:
                 #=============================cmd and file_path Information====================
@@ -83,7 +81,7 @@ class getstart():
                     ssh_result = scheck.SSH_Connection(lhost_ip,lhost_id,lhost_pw,lhost_port,local_path)
                     findcmd = findfile
                     mssFGCnt += 1
-                elif result == "MSS_Axgate":
+                elif result == "No_MSS_Axgate":
                     Axgate_cmd="backup config 210.103.187.138 ftp port 21 path Configbackup/Axgate_temp/MSS/{t_filename} login itsinftps Ksv-=6".format(t_filename=lfilename)
                     ssh_result = scheck.SSH_Connection_Axgate(lhost_ip,lhost_id,lhost_pw+'\n',lhost_port,local_path,Axgate_cmd)
                     findcmd = findfile_Axgate
@@ -94,7 +92,7 @@ class getstart():
                     ssh_result = scheck.SSH_Connection(lhost_ip,lhost_id,lhost_pw,lhost_port,local_path)
                     findcmd = findfile
                     maintainFGCnt += 1
-                elif result == "Maintain_Axgate":
+                elif result == "No_Maintain_Axgate":
                     Axgate_cmd="backup config 210.103.187.138 ftp port 21 path Configbackup/Axgate_temp/Maintain/{t_filename} login itsinftps Ksv-=6".format(t_filename=lfilename)
                     ssh_result = scheck.SSH_Connection_Axgate(lhost_ip,lhost_id,lhost_pw,lhost_port,local_path,Axgate_cmd)
                     findcmd = findfile_Axgate
@@ -110,25 +108,16 @@ class getstart():
                     continue 
 
                 fornum=fornum+1
+
+            with open('./backup_result','w') as bresult:
+                bresult.writelines(mssFGCnt)
+                bresult.writelines(maintainFGCnt)
                 
         except Exception as e:
             print("Except: " + str(e))
-            
-            #if find == os.system(findfile):
-            #    print("find")
-            #else:
-            #    file_check.writelines(lfilename) 
 
         except:
             print("Unknown Exception")
-
-
-        print(mssFGCnt)
-        print(mssAXCnt)
-        print(maintainFGCnt)
-        print(maintainAXCnt)
-
-    #def SshConnect
 
 if __name__ == "__main__":
     os.system('rm -rf /NAS/false_check.txt')
